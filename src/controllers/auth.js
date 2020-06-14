@@ -5,6 +5,7 @@ require("dotenv").config();
 
 const User = require("../models/user");
 
+
 module.exports = {
   signup: async (req, res) => {
     console.log("user sign up api");
