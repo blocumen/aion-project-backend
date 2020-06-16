@@ -36,8 +36,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 //app.use(expressValidator());
 var rroute = require('path').join(__dirname, 'src/routes')
+
 require('fs').readdirSync(rroute).forEach(function(file) {
     var routeFile = require(rroute + '/' + file);
+    
     app.use('/api/v1/', routeFile)
 })
 

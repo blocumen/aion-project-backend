@@ -21,10 +21,8 @@ const userSchema = new mongoose.Schema({
   salt: String,
   role : {
     type : String,
-    default : 'users'
+    default : 'user'
   },
-  
-  
  status: {
     type: Number,
     default: 1
