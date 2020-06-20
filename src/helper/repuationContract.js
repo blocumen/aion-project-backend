@@ -110,7 +110,7 @@ const sendSignedTransaction = (signedTransaction) => {
 
 
 module.exports = {
-  increaseReputation,
+  raiseReputation,
   downReputation
 }
 
