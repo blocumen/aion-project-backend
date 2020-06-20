@@ -42,6 +42,7 @@ module.exports = {
               error: "Email and password do not match"
             });
           }
+
         }
         
 
@@ -71,7 +72,27 @@ module.exports = {
     return res.json({ message: "Signout success" });
   },
 
-  requireSignin: expressJwt({
-    secret: process.env.JWT_SECRET
-  })
+  // requireSignin: expressJwt({
+  //   secret: process.env.JWT_SECRET
+  // },{
+
+  // })
+   requireSignin : (req, res, next) => {
+    const authHeader = req.headers.authorization;
+
+    if (authHeader) {
+        const token = authHeader.split(' ')[1];
+
+        jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+            if (err) {
+                return res.sendStatus(403);
+            }
+            console.log(user);
+            req.user = user;
+            next();
+        });
+    } else {
+        res.sendStatus(401);
+    }
+}
 };
