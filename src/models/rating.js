@@ -12,7 +12,7 @@ const ratingSchema = new mongoose.Schema({
   },
   postId : { 
       type : ObjectId,
-      ref : 'post'
+      ref : 'Post'
   },
   ratingType : {
       type : String,

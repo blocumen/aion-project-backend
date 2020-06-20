@@ -58,18 +58,18 @@ getAllPosts : async (req,res) => {
      return res.json(req.user);
  },
  giveRating : async (req,res) => {
-     try{
+   try{
          let ratingData = await new Rating(req.body);
          ratingData.ratedBy =  req.user._id;
-         let saveRating = ratingData.save();
-         if(ratingData){
+         let saveRating = await ratingData.save();
+         if(saveRating){
              res.json({
                  status : true,
                  rating :  saveRating
              })
          }
      }catch(err){
-          res.json({
+          res.status(400).json({
               status : false,
               error  : err
           })
