@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.post("/createPost" ,requireSignin, postController.createPost);
 router.get("/getUser",postController.getUser);
+router.post("/giveRating",postController.giveRating);
+router.get("/getAllPosts",postController.getAllPosts);
 
 
 

@@ -29,6 +29,20 @@ module.exports = {
        })
    }
  },
+getAllPosts : async (req,res) => {
+   try{
+      let allPost = await Post.find({});
+      return res.json({
+          status : true,
+          posts :  allPost
+      })
+   }catch(err){
+       return res.json({
+           status : false,
+           error : err
+       })
+   }
+},
  userById : async (req,res) =>{
      User.findById(id).exec((err,user) => {
          if(err || !user){
@@ -46,10 +60,12 @@ module.exports = {
  giveRating : async (req,res) => {
      try{
          let ratingData = await new Rating(req.body);
+         ratingData.ratedBy =  req.user._id;
+         let saveRating = ratingData.save();
          if(ratingData){
              res.json({
                  status : true,
-                 rating :  ratingData
+                 rating :  saveRating
              })
          }
      }catch(err){
