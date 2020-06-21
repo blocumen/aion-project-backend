@@ -14,6 +14,10 @@ const postSchema = new mongoose.Schema({
       type : String,
       default : null
   },
+  ratings : [{
+    type : ObjectId,
+    ref  : "Rating"
+  }],
   status: {
     type: String,
     default: 'active'

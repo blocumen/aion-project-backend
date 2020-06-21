@@ -23,6 +23,14 @@ const userSchema = new mongoose.Schema({
     type : String,
     default : 'user'
   },
+  publicKey : {
+    type : String,
+    required : true
+  },
+  reputionPoints : {
+      type : Number,
+      default : 0
+  },
  status: {
     type: Number,
     default: 1

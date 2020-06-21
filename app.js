@@ -11,6 +11,7 @@ const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
 const path = require("path");
 
+
  
 dotenv.config();
 
@@ -43,7 +44,11 @@ require('fs').readdirSync(rroute).forEach(function(file) {
     app.use('/api/v1/', routeFile)
 })
 
+var task = cron.schedule('*/5 * * * *',() => {
+  console.log("getting into cron jobs");
 
+})
+task.start();
 
 app.use(function(err, req, res, next) {
     if (err.name === 'UnauthorizedError') {
