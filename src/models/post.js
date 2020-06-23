@@ -22,15 +22,20 @@ const postSchema = new mongoose.Schema({
     type: String,
     default: 'active'
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
+ result :{
+   type : String
+ }
+  // createdAt: {
+  //   type: Date,
+  //   default: Date.now
+  // },
 
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
+  // updatedAt: {
+  //   type: Date,
+  //   default: Date.now
+  // }
+},{
+  timestamps : true,
 });
 
 

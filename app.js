@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
 const path = require("path");
-
+const { giveReputationToUser } = require('./scripts/cron_jobs');
 
  
 dotenv.config();
@@ -44,8 +44,9 @@ require('fs').readdirSync(rroute).forEach(function(file) {
     app.use('/api/v1/', routeFile)
 })
 
-var task = cron.schedule('*/5 * * * *',() => {
+var task = cron.schedule('*/1 * * * *',() => {
   console.log("getting into cron jobs");
+  giveReputationToUser();
 
 })
 task.start();
