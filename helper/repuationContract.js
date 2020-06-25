@@ -13,6 +13,8 @@ const decreaseReputation = "decreaseReputation";
 
 async function raiseReputation(publicKey) {
 
+
+
   // Create the data object.
   let data = web3.avm.contract
     .method(increaseReputation)
@@ -28,20 +30,22 @@ async function raiseReputation(publicKey) {
     gas: 2000000
     // type: "0x1"
   };
+try{
+ // Send the transaction object to the network and wait for a response.
+ let signedTransaction = await signTransaction(transactionObject);
+ const txObject = await sendSignedTransaction(signedTransaction);
 
-  // Send the transaction object to the network and wait for a response.
-  let signedTransaction = await signTransaction(transactionObject);
-  const txObject = await sendSignedTransaction(signedTransaction);
+ console.log('txObject : ',txObject);
+ // txObject.status === true ==> transaction was successfully
 
-  console.log('txObject : ',txObject);
-  // txObject.status === true ==> transaction was successfully
+ // console.log('initialResponse : ', initialResponse);
+ // Send the transaction object to the network and wait for a response.
+}catch(err){
+    console.log(err);
+}
+ 
+ 
 
-  // console.log('initialResponse : ', initialResponse);
-  // Decode the reponse.
-  let avmResponse = await web3.avm.contract.decode("string", initialResponse);
-
-  // Print the response to the console.
-  console.log("avn response : ", avmResponse);
 }
 
 async function downReputation(publicKey) {
@@ -114,5 +118,5 @@ module.exports = {
   downReputation
 }
 
-// raiseReputation("0xa073eb74573e892d5cde20b3bf84f406a41cc669e012678452d00e7f0a06546d").then(console.log);
+ //raiseReputation("0xa073eb74573e892d5cde20b3bf84f406a41cc669e012678452d00e7f0a06546d").then(console.log);
 

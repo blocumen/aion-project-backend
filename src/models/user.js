@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     type : String,
     required : true
   },
-  reputionPoints : {
+  reputationPoints : {
       type : Number,
       default : 0
   },
