@@ -59,7 +59,7 @@ module.exports = {
 
         //return response with user and token to frontend client
         if (user) {
-          const { _id, fullName, email } = user;
+          const { _id, fullName, role } = user;
           return res.json({ token, user: { _id, fullName, role} });
         }
        
