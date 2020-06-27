@@ -23,7 +23,8 @@ const postSchema = new mongoose.Schema({
     default: 'active'
   },
  result :{
-   type : String
+   type : String,
+   default: "noStatus"
  }
   // createdAt: {
   //   type: Date,

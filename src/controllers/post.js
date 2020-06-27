@@ -30,6 +30,7 @@ module.exports = {
   getAllPosts: async (req, res) => {
     try {
       let allPost = await Post.find({}).populate("ratings");
+      console.log('allPost : ',JSON.stringify(allPost));
       return res.json({
         status: true,
         posts: allPost,
@@ -58,13 +59,18 @@ module.exports = {
   giveRating: async (req, res) => {
     try {
       let ratingData = await new Rating(req.body);
+      console.log('ratingData : ',ratingData);
       ratingData.ratedBy = req.user._id;
+      console.log('saving data');
       let saveRating = await ratingData.save();
+      console.log('saving data done');
       if (saveRating) {
-        let postUpdate = await Post.findOneAndUpdate(
+        console.log('saveRating : ',saveRating);
+        var postUpdate = await Post.findOneAndUpdate(
           { _id: req.body.postId },
           { $push: { ratings: saveRating._id } }
         );
+        console.log('save rating data : done');
       }
 
       if (saveRating && postUpdate) {
