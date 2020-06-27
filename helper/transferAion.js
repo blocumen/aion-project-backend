@@ -56,6 +56,7 @@ const sendSignedTransaction = (signedTransaction) => {
     })
     .on("error", (error) => {
       console.error(`Error occurred sending transaction ${error}`);
+      
     })
     .then((receipt) => {
       // This will be fired once the receipt is mined
