@@ -17,12 +17,12 @@ module.exports = {
 
                 //console.log("newDateObj:" new Date(newDateObj).getTime())
               // console.log(new Date(allPost[i].createdAt.toString()).getTime())
-              console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-              console.log(allPost[i]._id);
-              console.log(new Date().getTime());
-              console.log(new Date(moment(allPost[i].createdAt).toDate()));
-              console.log(new Date(newDateObj).getTime());
-              console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            //   console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            //   console.log(allPost[i]._id);
+            //   console.log(new Date().getTime());
+            //   console.log(new Date(moment(allPost[i].createdAt).toDate()));
+            //   console.log(new Date(newDateObj).getTime());
+            //   console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
              //  let timeDiff = new Date(newDateObj).getTime() - new Date().getTime();
                if(new Date().getTime() >= new Date(newDateObj).getTime()){
                   

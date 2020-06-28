@@ -29,7 +29,7 @@ module.exports = {
   },
   getAllPosts: async (req, res) => {
     try {
-      let allPost = await Post.find({}).populate("ratings");
+      let allPost = await Post.find({}).sort({ $natural: -1 }).populate("ratings");
      
       return res.json({
         status: true,
