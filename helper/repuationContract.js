@@ -1,20 +1,19 @@
-const Web3 = require('aion-web3');
+const Web3 = require("aion-web3");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const web3 = new Web3(new Web3.providers.HttpProvider(process.env.NODESMITH_API_KEY));
+const web3 = new Web3(
+  new Web3.providers.HttpProvider(process.env.NODESMITH_API_KEY)
+);
 const privateKey = process.env.TRANSACTION_KEY;
 const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 
-const contractAddress = "0xa0a36bc59912fa4d3883782a8cceec87073f197ccfc18dfe5e08f402f468a344";
+const contractAddress =
+  "0xa0a36bc59912fa4d3883782a8cceec87073f197ccfc18dfe5e08f402f468a344";
 const increaseReputation = "increaseReputation";
 const decreaseReputation = "decreaseReputation";
 
-
 async function raiseReputation(publicKey) {
-
-
-
   // Create the data object.
   let data = web3.avm.contract
     .method(increaseReputation)
@@ -26,30 +25,26 @@ async function raiseReputation(publicKey) {
     from: account.address,
     to: contractAddress,
     data: data,
-    gasPrice: '0x4A817C800',
-    gas: 2000000
+    gasPrice: "0x4A817C800",
+    gas: 2000000,
     // type: "0x1"
   };
-try{
- // Send the transaction object to the network and wait for a response.
- let signedTransaction = await signTransaction(transactionObject);
- const txObject = await sendSignedTransaction(signedTransaction);
+  try {
+    // Send the transaction object to the network and wait for a response.
+    let signedTransaction = await signTransaction(transactionObject);
+    const txObject = await sendSignedTransaction(signedTransaction);
 
- console.log('txObject : ',txObject);
- // txObject.status === true ==> transaction was successfully
+    console.log("txObject : ", txObject);
+    // txObject.status === true ==> transaction was successfully
 
- // console.log('initialResponse : ', initialResponse);
- // Send the transaction object to the network and wait for a response.
-}catch(err){
+    // console.log('initialResponse : ', initialResponse);
+    // Send the transaction object to the network and wait for a response.
+  } catch (err) {
     console.log(err);
-}
- 
- 
-
+  }
 }
 
 async function downReputation(publicKey) {
-
   // Create the data object.
   let data = web3.avm.contract
     .method(decreaseReputation)
@@ -61,8 +56,8 @@ async function downReputation(publicKey) {
     from: account.address,
     to: contractAddress,
     data: data,
-    gasPrice: '0x4A817C800',
-    gas: 2000000
+    gasPrice: "0x4A817C800",
+    gas: 2000000,
     // type: "0x1"
   };
 
@@ -70,7 +65,7 @@ async function downReputation(publicKey) {
   let signedTransaction = await signTransaction(transactionObject);
   const txObject = await sendSignedTransaction(signedTransaction);
 
-  console.log('txObject : ',txObject);
+  console.log("txObject : ", txObject);
   // txObject.status === true ==> transaction was successfully
 
   // console.log('initialResponse : ', initialResponse);
@@ -82,41 +77,42 @@ async function downReputation(publicKey) {
 }
 
 const signTransaction = async (transactionObject) => {
-
   // Get an unlocked account object which we can use to sign transactions
   const unlockedAccount = web3.eth.accounts.privateKeyToAccount(privateKey);
 
   // Sign the transaction and wait for the result.
-  const signedTransaction = await unlockedAccount.signTransaction(transactionObject);
-  console.log('signedTransaction : ',signedTransaction);
+  const signedTransaction = await unlockedAccount.signTransaction(
+    transactionObject
+  );
+  console.log("signedTransaction : ", signedTransaction);
   return signedTransaction;
-}
+};
 
 const sendSignedTransaction = (signedTransaction) => {
-
   // Send the transaction and listen for the various events
   // https://web3js.readthedocs.io/en/1.0/callbacks-promises-events.html#promievent
-  return web3.eth.sendSignedTransaction(signedTransaction.rawTransaction)
-    .once('transactionHash', (hash) => {
+  return web3.eth
+    .sendSignedTransaction(signedTransaction.rawTransaction)
+    .once("transactionHash", (hash) => {
       console.log(`Received transaction hash ${hash}`);
-      const explorerUrl = 'https://mastery.aion.network/#/transaction/' + hash;
+      const explorerUrl = "https://mastery.aion.network/#/transaction/" + hash;
       console.log(`Check ${explorerUrl} once transaction is confirmed.`);
     })
-    .on('error', (error) => {
+    .on("error", (error) => {
       console.error(`Error occurred sending transaction ${error}`);
     })
     .then((receipt) => {
-        // This will be fired once the receipt is mined
-        console.log(`Transaction sent successfully. Receipt: ${JSON.stringify(receipt)}`);
-        return receipt;
+      // This will be fired once the receipt is mined
+      console.log(
+        `Transaction sent successfully. Receipt: ${JSON.stringify(receipt)}`
+      );
+      return receipt;
     });
-}
-
+};
 
 module.exports = {
   raiseReputation,
-  downReputation
-}
+  downReputation,
+};
 
- //raiseReputation("0xa073eb74573e892d5cde20b3bf84f406a41cc669e012678452d00e7f0a06546d").then(console.log);
-
+//raiseReputation("0xa073eb74573e892d5cde20b3bf84f406a41cc669e012678452d00e7f0a06546d").then(console.log);
