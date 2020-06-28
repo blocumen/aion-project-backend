@@ -30,7 +30,7 @@ module.exports = {
   getAllPosts: async (req, res) => {
     try {
       let allPost = await Post.find({}).populate("ratings");
-      console.log('allPost : ',JSON.stringify(allPost));
+     
       return res.json({
         status: true,
         posts: allPost,
@@ -58,15 +58,17 @@ module.exports = {
   },
   giveRating: async (req, res) => {
     try {
-      let ratings = await Rating.findById({postId : req.body.postId});
-      ratings.forEach((item) => {
-        if(item.ratedBy == req.user._id){
-          return res.json({
-            status :  false,
-            message : "You can't rate this post a you have done earlier"
-          })
-        }
-      })
+      console.log(req.body);
+      // let ratings = await Rating.findOne({postId : req.body.postId});
+      // console.log(ratings);
+      // ratings.forEach((item) => {
+      //   if(item.ratedBy == req.user._id){
+      //     return res.json({
+      //       status :  false,
+      //       message : "You can't rate this post a you have done earlier"
+      //     })
+      //   }
+      // })
       let ratingData = await new Rating(req.body);
       console.log('ratingData : ',ratingData);
       ratingData.ratedBy = req.user._id;

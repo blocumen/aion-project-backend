@@ -44,7 +44,7 @@ require('fs').readdirSync(rroute).forEach(function(file) {
     app.use('/api/v1/', routeFile)
 })
 
-var task = cron.schedule('*/1 * * * *',() => {
+var task = cron.schedule('*/2 * * * *',() => {
   console.log("getting into cron jobs");
   giveReputationToUser();
 
