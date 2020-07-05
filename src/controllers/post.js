@@ -49,12 +49,15 @@ module.exports = {
           error: "User not found",
         });
       }
+      console.log(user);
       req.user = user;
       req.session.user = user;
     });
   },
   getUser: async (req, res) => {
-    return res.json(req.user);
+  let user =  await User.findById({_id :req.user._id});
+   
+    return res.json(user);
   },
   giveRating: async (req, res) => {
     try {
