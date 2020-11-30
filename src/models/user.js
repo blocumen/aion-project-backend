@@ -23,10 +23,10 @@ const userSchema = new mongoose.Schema({
     type : String,
     default : 'user'
   },
-  publicKey : {
-    type : String,
-    required : true
-  },
+  // publicKey : {
+  //   type : String,
+  //   required : true
+  // },
   reputationPoints : {
       type : Number,
       default : 0
