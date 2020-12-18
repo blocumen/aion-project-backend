@@ -5,27 +5,30 @@ const {ObjectId} = mongoose.Schema;
 
 const postSchema = new mongoose.Schema({
   
-  userId: {
+userId: {
     type: ObjectId,
     ref: "User"
   },
-  
-  postContent : {
+ postContent : {
       type : String,
       default : null
+  },
+  tweetLink : {
+    type : String,
+    default : null
   },
   ratings : [{
     type : ObjectId,
     ref  : "Rating"
-  }],
+   }],
   status: {
     type: String,
     default: 'active'
   },
- result :{
+  result :{
    type : String,
    default: "noStatus"
- }
+  }
   // createdAt: {
   //   type: Date,
   //   default: Date.now
